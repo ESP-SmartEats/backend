@@ -1,20 +1,20 @@
-import express from 'express';
-import config from './config';
-import router from './routes';
+import express from 'express'
+import config from './config'
+import router from './routes'
 
-const app = express();
-const port = config.server.port ?? 8080;
+const app = express()
+const port = config.server.port ?? 8080
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-app.use(router);
+app.use(router)
 
 // Sample route
 app.get('/', (req, res) => {
-  res.json({ message: 'Hello, Express API!' });
-});
+  res.json({ message: 'Hello, Express API!' })
+})
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+  console.log(`Server is running on port ${port}`)
+})

@@ -1,9 +1,9 @@
-import { type Request, type Response } from 'express';
+import { type Request, type Response } from 'express'
 
 class SampleController {
   public sayHello(req: Request, res: Response): void {
-    res.json({ message: 'Hello from the controller!' });
+    res.json({ message: 'Hello from the controller!' })
   }
 }
 
-export default SampleController;
+export default SampleController

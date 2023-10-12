@@ -1,9 +1,9 @@
-import { Router } from 'express';
-import SampleController from '../controllers/sampleController';
+import { Router } from 'express'
+import SampleController from '../controllers/sampleController'
 
-const router = Router();
-const sampleController = new SampleController();
+const router = Router()
+const sampleController = new SampleController()
 
-router.get('/sample', sampleController.sayHello);
+router.get('/sample', sampleController.sayHello)
 
-export default router;
+export default router
