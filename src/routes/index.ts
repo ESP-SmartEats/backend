@@ -1,9 +1,10 @@
+import * as recipesRoute from './recipes'
+import * as photoDetectionRoute from './photoDetection'
 import { Router } from 'express'
-import SampleController from '../controllers/sampleController'
 
 const router = Router()
-const sampleController = new SampleController()
 
-router.get('/sample', sampleController.sayHello)
+router.use(recipesRoute.default)
+router.use(photoDetectionRoute.default)
 
 export default router
