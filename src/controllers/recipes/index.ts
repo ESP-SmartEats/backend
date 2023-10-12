@@ -1,7 +1,6 @@
 import { type Request, type Response } from 'express'
 import config from '../../config'
 import {
-  Nutrients,
   type IRecipe,
   type IRecipes,
   type IRecipesRequestParams,
@@ -125,6 +124,44 @@ const getDetailsRecipe = async (
       },
     }
   }
+}
+
+enum Nutrients {
+  ENERC_KCAL = 'ENERC_KCAL',
+  FAT = 'FAT',
+  FASAT = 'FASAT',
+  FATRN = 'FATRN',
+  FAMS = 'FAMS',
+  FAPU = 'FAPU',
+  CHOCDF = 'CHOCDF',
+  CHOCDF_NET = 'CHOCDF.net',
+  FIBTG = 'FIBTG',
+  SUGAR = 'SUGAR',
+  SUGAR_ADDED = 'SUGAR.added',
+  SUGAR_ALCOHOL = 'SUGAR.alcohol',
+  PROCNT = 'PROCNT',
+  CHOLE = 'CHOLE',
+  NA = 'NA',
+  CA = 'CA',
+  MG = 'MG',
+  K = 'K',
+  FE = 'FE',
+  ZN = 'ZN',
+  P = 'P',
+  VITA_RAE = 'VITA_RAE',
+  VITC = 'VITC',
+  THIA = 'THIA',
+  RIBF = 'RIBF',
+  NIA = 'NIA',
+  VITB6A = 'VITB6A',
+  FOLDFE = 'FOLDFE',
+  FOLFD = 'FOLFD',
+  FOLAC = 'FOLAC',
+  VITB12 = 'VITB12',
+  VITD = 'VITD',
+  TOCPHA = 'TOCPHA',
+  VITK1 = 'VITK1',
+  WATER = 'WATER',
 }
 
 export { getRecipes, getDetailsRecipe }
