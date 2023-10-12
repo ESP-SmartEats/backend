@@ -12,8 +12,8 @@
     "lint:fix": "eslint --fix 'src/**/*.ts'",
     "format": "prettier --write 'src/**/*.{ts,js,json}'",
     "commit": "git-cz",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test": "jest --passWithNoTests",
+    "test:coverage": "jest --coverage --passWithNoTests"
   },
   "license": "MIT",
   "dependencies": {
@@ -49,8 +49,9 @@
     "ts-jest": "^29.1.1"
   },
   "lint-staged": {
-    "*.{ts}": [
-      "yarn lint"
+    "*.{ts,js,json}": [
+      "yarn lint",
+      "yarn test"
     ]
   }
 }
