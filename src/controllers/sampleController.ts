@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 
 class SampleController {
   public sayHello(req: Request, res: Response): void {
