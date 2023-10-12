@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 const config = {
   services: {
     recipes: {
@@ -13,6 +13,6 @@ const config = {
     port: Number(process.env.PORT) ?? 8080,
     IP: process.env.IP ?? 'localhost',
   },
-};
+}
 
-export default config;
+export default config
