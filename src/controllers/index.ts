@@ -1,3 +1,3 @@
-import getRecipes from './recipes'
+import { getRecipes, getDetailsRecipe } from './recipes'
 
-export { getRecipes }
+export { getRecipes, getDetailsRecipe }

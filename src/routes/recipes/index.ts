@@ -1,14 +1,16 @@
-import { Router } from 'express'
-import { getRecipes } from '../../controllers'
+import { Router, type Request, type Response } from 'express'
+import { getRecipes, getDetailsRecipe } from '../../controllers'
 
 const router = Router()
 
-router.get('/sample', (req, res) => {
-  getRecipes(req, res)
+router.get('/recipes', async (req: Request, res: Response): Promise<void> => {
+  const result = await getRecipes(req, res)
+  res.json(result)
 })
 
-router.get('/sample/details', (req, res) => {
-  res.json({ message: 'sample details' })
+router.get('/recipes/:id', async (req: Request, res: Response): Promise<void> => {
+  const result = await getDetailsRecipe(req, res)
+  res.json(result)
 })
 
 export default router
