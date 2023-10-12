@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "d5fee736-fb07-44f8-a8b2-4b9d683c4bca",
+		"name": "SmartEats",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14832304"
+	},
+	"item": [
+		{
+			"name": "Recipes",
+			"item": [
+				{
+					"name": "Get recipes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-url}}/recipes?mealType=Lunch&dishType=Main course&calories=500-1000&time=10-30&excluded=pretzel&q=chicken-curry&excluded=vinegar",
+							"host": [
+								"{{smart-eats-url}}"
+							],
+							"path": [
+								"recipes"
+							],
+							"query": [
+								{
+									"key": "nextPage",
+									"value": "CHcVQBtNNQphDmgVQntAEX4BYlV1GgUEQWdEBWEaa1xxAQQOUXlSUWERZ110BlUFRzZFADQRYV1yAQICFmNJBTYSNlEiBVAVLnlSVSBMPkd5AAMbUSYRVTdgMgksRlpSAAcRXTVGcV84SU4=",
+									"disabled": true
+								},
+								{
+									"key": "health",
+									"value": "alcohol-free",
+									"disabled": true
+								},
+								{
+									"key": "cuisineType",
+									"value": "American",
+									"disabled": true
+								},
+								{
+									"key": "diet",
+									"value": "low-carb",
+									"disabled": true
+								},
+								{
+									"key": "mealType",
+									"value": "Lunch"
+								},
+								{
+									"key": "dishType",
+									"value": "Main course"
+								},
+								{
+									"key": "calories",
+									"value": "500-1000"
+								},
+								{
+									"key": "time",
+									"value": "10-30"
+								},
+								{
+									"key": "excluded",
+									"value": "pretzel"
+								},
+								{
+									"key": "q",
+									"value": "chicken-curry"
+								},
+								{
+									"key": "excluded",
+									"value": "vinegar"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get recipe detail with id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-url}}/recipes/018cd9b9ab4dbb9286aa1fe5e0ed7628",
+							"host": [
+								"{{smart-eats-url}}"
+							],
+							"path": [
+								"recipes",
+								"018cd9b9ab4dbb9286aa1fe5e0ed7628"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "smart-eats-url",
+			"value": "localhost:8080"
+		}
+	]
+}

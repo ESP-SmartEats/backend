@@ -1,4 +1,6 @@
 const getNextPageParam = (url: string): string | null => {
+  if (!url) return null
+
   const queryString = url.split('?')[1]
 
   if (queryString) {
