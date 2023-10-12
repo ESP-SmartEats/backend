@@ -18,4 +18,10 @@ const getNextPageParam = (url: string): string | null => {
   return null
 }
 
-export { getNextPageParam }
+const getParamValue = (value: string | undefined): string | undefined => {
+  if (!value) return undefined
+
+  return value.replace(/\+/g, '%2B')
+}
+
+export { getNextPageParam, getParamValue }
