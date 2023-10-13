@@ -11,7 +11,7 @@ import {
   type TMealType,
 } from '@hienpham512/smarteats'
 import axios from 'axios'
-import { getNextPageParam } from './helper'
+import { getNextPageParam, getParamValue } from './helper'
 
 const apiKey = config.services.recipes.apiKey
 const apiId = config.services.recipes.apiId
@@ -39,8 +39,8 @@ const getRecipes = async (
     const diet = query.diet as TDiet
     const mealType = query.mealType as TMealType
     const dishType = query.dishType as TDishType
-    const calories = query.calories as string
-    const time = query.time as string
+    const calories = getParamValue(query.calories as string)
+    const time = getParamValue(query.time as string)
     const excluded = query.excluded as string[] | string | undefined
     const nextPage = query.nextPage as string
 
@@ -56,6 +56,17 @@ const getRecipes = async (
       time,
     }
 
+    const nutritions = Object.values(Nutrients)
+
+    let nutrientsParams = ''
+
+    for (const nutrition of nutritions) {
+      const value = query[nutrition]
+      if (value) {
+        nutrientsParams += `&nutrients%5B${nutrition}%5D=${getParamValue(value as string)}`
+      }
+    }
+
     let excludedParams = ''
     if (typeof excluded === 'string') {
       excludedParams += `&excluded=${excluded}`
@@ -63,7 +74,7 @@ const getRecipes = async (
       excludedParams += excluded.map((item) => `&excluded=${item}`).join('')
     }
 
-    const baseUrl = `${config.services.recipes.url}?type=public&app_id=${apiId}&app_key=${apiKey}${excludedParams}`
+    const baseUrl = `${config.services.recipes.url}?type=public&app_id=${apiId}&app_key=${apiKey}${excludedParams}${nutrientsParams}`
 
     const response = await axios.get(baseUrl, { params })
     const result: IRecipes = {
@@ -113,5 +124,43 @@ const getDetailsRecipe = async (
       },
     }
   }
+}
+
+enum Nutrients {
+  ENERC_KCAL = 'ENERC_KCAL',
+  FAT = 'FAT',
+  FASAT = 'FASAT',
+  FATRN = 'FATRN',
+  FAMS = 'FAMS',
+  FAPU = 'FAPU',
+  CHOCDF = 'CHOCDF',
+  CHOCDF_NET = 'CHOCDF.net',
+  FIBTG = 'FIBTG',
+  SUGAR = 'SUGAR',
+  SUGAR_ADDED = 'SUGAR.added',
+  SUGAR_ALCOHOL = 'SUGAR.alcohol',
+  PROCNT = 'PROCNT',
+  CHOLE = 'CHOLE',
+  NA = 'NA',
+  CA = 'CA',
+  MG = 'MG',
+  K = 'K',
+  FE = 'FE',
+  ZN = 'ZN',
+  P = 'P',
+  VITA_RAE = 'VITA_RAE',
+  VITC = 'VITC',
+  THIA = 'THIA',
+  RIBF = 'RIBF',
+  NIA = 'NIA',
+  VITB6A = 'VITB6A',
+  FOLDFE = 'FOLDFE',
+  FOLFD = 'FOLFD',
+  FOLAC = 'FOLAC',
+  VITB12 = 'VITB12',
+  VITD = 'VITD',
+  TOCPHA = 'TOCPHA',
+  VITK1 = 'VITK1',
+  WATER = 'WATER',
 }
 export { getRecipes, getDetailsRecipe }
