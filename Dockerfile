@@ -1,6 +1,6 @@
 FROM node:18
 
-WORKDIR /app
+WORKDIR /dist
 
 COPY package*.json ./
 
@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["node", "app.js"]
+CMD ["node", "dist/app.js"]
