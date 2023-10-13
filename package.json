@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "app.ts",
   "repository": "git@github.com:ESP-SmartEats/backend.git",
   "author": "hienpham512 <thi-hien.pham@epitech.eu>",
   "scripts": {
