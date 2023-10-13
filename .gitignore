@@ -7,6 +7,9 @@ logs
 *.lock
 npm-debug.log*
 
+#test
+coverage
+
 #idea
 .idea
 
