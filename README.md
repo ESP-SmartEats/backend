@@ -22,7 +22,7 @@ SmartEats Backend is a TypeScript-based Express.js REST API for the SmartEats pr
 
 Before you begin, ensure you have met the following requirements:
 
-- Node.js (v14 or higher)
+- Node.js (v18 or higher)
 - Yarn (v1.22 or higher)
 - Git
 
