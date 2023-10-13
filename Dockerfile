@@ -1,10 +1,12 @@
-FROM node:14
+FROM node:18
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN yarn install
+
+RUN yarn build
 
 COPY . .
 
