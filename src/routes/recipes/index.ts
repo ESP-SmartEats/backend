@@ -1,7 +1,11 @@
 import { Router, type Request, type Response } from 'express'
 import { getRecipes, getDetailsRecipe } from '../../controllers'
+import verifyToken from '../..//middleWare'
 
 const router = Router()
+
+router.use('/recipes', verifyToken)
+router.use('/recipes/:id', verifyToken)
 
 /**
  * @swagger
@@ -74,6 +78,17 @@ const router = Router()
  *          application/json:
  *           schema:
  *            $ref: '#/components/schemas/IRecipes'
+ *       400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/IError'
+ *       401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
  */
 router.get('/recipes', async (req: Request, res: Response): Promise<void> => {
   const result = await getRecipes(req, res)
@@ -100,6 +115,17 @@ router.get('/recipes', async (req: Request, res: Response): Promise<void> => {
  *          application/json:
  *            schema:
  *             $ref: '#/components/schemas/IRecipeDetails'
+ *       400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/IError'
+ *       401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
  */
 router.get('/recipes/:id', async (req: Request, res: Response): Promise<void> => {
   const result = await getDetailsRecipe(req, res)

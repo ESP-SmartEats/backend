@@ -186,7 +186,44 @@ const getExerciseName = async (
   }
 }
 
+const getExerciseId = async (
+  req: Request,
+  res: Response,
+): Promise<
+  | IExercise[]
+  | {
+      error: {
+        code: string
+        message: string
+      }
+    }
+> => {
+  try {
+    const { id } = req.params
+    const exercises = await axios.get(`${url}/exercise/${id}`, {
+      params: {
+        limit: 20,
+      },
+      headers: {
+        'X-RapidAPI-Key': apiKey,
+        'X-RapidAPI-Host': host,
+      },
+    })
+
+    return exercises.data
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+  } catch (error: any) {
+    return {
+      error: {
+        code: error.code,
+        message: error.message,
+      },
+    }
+  }
+}
+
 export {
+  getExerciseId,
   getExerciseName,
   getExercises,
   getExercisesBodyPart,

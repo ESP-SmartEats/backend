@@ -5,6 +5,7 @@ import {
   getExercisesBodyPart,
   getExercisesEquipment,
   getExercisesTarget,
+  getExerciseId,
 } from '../../controllers'
 
 const router = Router()
@@ -15,6 +16,9 @@ const router = Router()
  *   get:
  *     summary: Get a list of exercises
  *     description: Retrieve a list of exercises based on specified parameters.
+ *     headers:
+ *      authorization:
+ *       type: string
  *     responses:
  *      200:
  *       description: A list of exercises.
@@ -24,6 +28,17 @@ const router = Router()
  *          type: array
  *          items:
  *           $ref: '#/components/schemas/IExercise'
+ *      400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/IError'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
  */
 router.get('/exercises', async (req, res) => {
   const result = await getExercises(req, res)
@@ -52,9 +67,57 @@ router.get('/exercises', async (req, res) => {
  *          type: array
  *          items:
  *           $ref: '#/components/schemas/IExercise'
+ *      400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/IError'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
  */
 router.get('/exercises/name/:name', async (req, res) => {
   const result = await getExerciseName(req, res)
+  res.json(result)
+  console.log(`Request: ${req.originalUrl}\n`)
+})
+
+/**
+ * @swagger
+ * /exercises/name/{id}:
+ *   get:
+ *     summary: Get details of a specific exercise
+ *     description: Retrieve details of a specific exercise by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         description: The ID of the exercise to retrieve.
+ *     responses:
+ *      200:
+ *         description: Successful response
+ *         content:
+ *          application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/IExercise'
+ *      400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/IError'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
+ */
+router.get('/exercises/exercise/:id', async (req, res) => {
+  const result = await getExerciseId(req, res)
   res.json(result)
   console.log(`Request: ${req.originalUrl}\n`)
 })
@@ -80,6 +143,17 @@ router.get('/exercises/name/:name', async (req, res) => {
  *          type: array
  *          items:
  *           $ref: '#/components/schemas/IExercise'
+ *      400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/IError'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
  */
 router.get('/exercises/body-part/:bodyPart', async (req, res) => {
   const result = await getExercisesBodyPart(req, res)
@@ -108,6 +182,17 @@ router.get('/exercises/body-part/:bodyPart', async (req, res) => {
  *          type: array
  *          items:
  *           $ref: '#/components/schemas/IExercise'
+ *      400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/IError'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
  */
 router.get('/exercises/equipment/:equipment', async (req, res) => {
   const result = await getExercisesEquipment(req, res)
@@ -136,6 +221,17 @@ router.get('/exercises/equipment/:equipment', async (req, res) => {
  *          type: array
  *          items:
  *           $ref: '#/components/schemas/IExercise'
+ *      400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *             $ref: '#/components/schemas/IError'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
  */
 router.get('/exercises/target/:target', async (req, res) => {
   const result = await getExercisesTarget(req, res)
