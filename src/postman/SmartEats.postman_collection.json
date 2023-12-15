@@ -94,13 +94,7 @@
           "name": "Get exercises",
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
+            
             "url": {
               "raw": "{{smart-eats-local}}/exercises",
               "host": ["{{smart-eats-local}}"],
@@ -113,13 +107,7 @@
           "name": "Get exercises body part",
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
+            
             "url": {
               "raw": "{{smart-eats-local}}/exercises/body-part/back",
               "host": ["{{smart-eats-local}}"],
@@ -132,13 +120,7 @@
           "name": "Get exercises equipment",
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
+            
             "url": {
               "raw": "{{smart-eats-local}}/exercises/equipment/band",
               "host": ["{{smart-eats-local}}"],
@@ -151,13 +133,7 @@
           "name": "Get exercises tagert",
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
+            
             "url": {
               "raw": "{{smart-eats-local}}/exercises/target/abductors",
               "host": ["{{smart-eats-local}}"],
@@ -170,13 +146,7 @@
           "name": "Get exercises name",
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
+            
             "url": {
               "raw": "{{smart-eats-local}}/exercises/name/jump",
               "host": ["{{smart-eats-local}}"],
