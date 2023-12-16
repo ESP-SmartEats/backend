@@ -1,7 +1,8 @@
 import { getRecipes, getDetailsRecipe } from './recipes'
 import {
-  getExercises,
+  getExerciseId,
   getExerciseName,
+  getExercises,
   getExercisesBodyPart,
   getExercisesEquipment,
   getExercisesTarget,
@@ -9,8 +10,9 @@ import {
 
 export {
   getDetailsRecipe,
-  getExercises,
+  getExerciseId,
   getExerciseName,
+  getExercises,
   getExercisesBodyPart,
   getExercisesEquipment,
   getExercisesTarget,

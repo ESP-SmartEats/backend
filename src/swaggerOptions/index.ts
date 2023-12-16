@@ -4,7 +4,29 @@ const options: swaggerJsdoc.Options = {
   swaggerDefinition: {
     openapi: '3.0.2',
     components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          in: 'header',
+          name: 'Authorization',
+          description: 'Bearer token to access these api endpoints',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
       schemas: {
+        IError: {
+          type: 'object',
+          properties: {
+            error: {
+              type: 'object',
+              properties: {
+                message: { type: 'string' },
+                code: { type: 'number' },
+              },
+            },
+          },
+        },
         IRecipes: {
           type: 'object',
           properties: {
@@ -388,6 +410,9 @@ const options: swaggerJsdoc.Options = {
           },
         },
       },
+    },
+    security: {
+      bearerAuth: [],
     },
     info: {
       title: 'Express & Recipes API with Swagger',
