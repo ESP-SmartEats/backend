@@ -411,9 +411,11 @@ const options: swaggerJsdoc.Options = {
         },
       },
     },
-    security: {
-      bearerAuth: [],
-    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
     info: {
       title: 'Express & Recipes API with Swagger',
       version: '1.0.0',
