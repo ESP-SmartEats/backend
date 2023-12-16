@@ -7,18 +7,23 @@ import {
   getExercisesTarget,
   getExerciseId,
 } from '../../controllers'
+import verifyToken from '../../middleWare'
 
 const router = Router()
+
+router.use('/exercises', verifyToken)
+router.use('/exercises/name/:name', verifyToken)
+router.use('/exercises/body-part/:bodyPart', verifyToken)
+router.use('/exercises/equipment/:equipment', verifyToken)
+router.use('/exercises/target/:target', verifyToken)
+router.use('/exercises/exercise/:id', verifyToken)
 
 /**
  * @swagger
  * /exercises:
  *   get:
  *     summary: Get a list of exercises
- *     description: Retrieve a list of exercises based on specified parameters.
- *     headers:
- *      authorization:
- *       type: string
+ *     description: Retrieve a list of exercises.
  *     responses:
  *      200:
  *       description: A list of exercises.
