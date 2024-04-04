@@ -430,7 +430,14 @@ const options: swaggerJsdoc.Options = {
           properties: {
             food: {
               type: 'object',
-              properties: { $ref: '#/components/schemas/IFood' },
+              properties: {
+                foodId: { type: 'string' },
+                label: { type: 'string' },
+                nutrients: { $ref: '#/components/schemas/IFoodNutrients' },
+                category: { $ref: '#/components/schemas/IFoodCategory' },
+                categoryLabel: { $ref: '#/components/schemas/IFoodCategoryLabel' },
+                image: { type: 'string' },
+              },
             },
             measures: { type: 'array', items: { $ref: '#/components/schemas/IFoodMeasure' } },
           },
@@ -520,7 +527,11 @@ const options: swaggerJsdoc.Options = {
       description: 'Development server',
     },
   ],
-  apis: ['./src/routes/recipes/index.ts', './src/routes/exercises/index.ts'],
+  apis: [
+    './src/routes/recipes/index.ts',
+    './src/routes/exercises/index.ts',
+    './src/routes/foods/index.ts',
+  ],
 }
 
 const specs = swaggerJsdoc(options)
