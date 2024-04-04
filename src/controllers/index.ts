@@ -7,6 +7,7 @@ import {
   getExercisesEquipment,
   getExercisesTarget,
 } from './exercises'
+import { getFoods } from './foods'
 
 export {
   getDetailsRecipe,
@@ -16,5 +17,6 @@ export {
   getExercisesBodyPart,
   getExercisesEquipment,
   getExercisesTarget,
+  getFoods,
   getRecipes,
 }
