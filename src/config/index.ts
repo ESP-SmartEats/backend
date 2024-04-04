@@ -25,6 +25,11 @@ const config = {
       url: process.env.EDAMAM_URL ?? 'https://api.edamam.com/api/recipes/v2',
       apiKey: process.env.EDAMAM_API_KEY,
       apiId: process.env.EDAMAM_API_ID,
+      urlFoodDatabase:
+        process.env.EDAMAM_URL_FOOD_DATABASE ??
+        'https://api.edamam.com/api/food-database/v2/parser',
+      apiIdFoodDatabase: process.env.EDAMAM_API_ID_FOOD_DATABASE,
+      apiKeyFoodDatabase: process.env.EDAMAM_API_KEY_FOOD_DATABASE,
     },
   },
   server: {
