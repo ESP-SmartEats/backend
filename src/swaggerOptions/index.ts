@@ -409,6 +409,97 @@ const options: swaggerJsdoc.Options = {
             },
           },
         },
+        IFoodsRequestParams: {
+          type: 'object',
+          properties: {
+            _cont: { type: 'string' },
+            ingr: { type: 'string' },
+          },
+        },
+        IFoods: {
+          type: 'object',
+          properties: {
+            text: { type: 'string' },
+            hints: { type: 'array', items: { $ref: '#/components/schemas/IFoodHint' } },
+            parsed: { type: 'array', items: { $ref: '#/components/schemas/IFood' } },
+            nextPage: { type: ['string', 'null'] },
+          },
+        },
+        IFoodHint: {
+          type: 'object',
+          properties: {
+            food: {
+              type: 'object',
+              properties: { $ref: '#/components/schemas/IFood' },
+            },
+            measures: { type: 'array', items: { $ref: '#/components/schemas/IFoodMeasure' } },
+          },
+        },
+        IFood: {
+          type: 'object',
+          properties: {
+            foodId: { type: 'string' },
+            label: { type: 'string' },
+            knownAs: { type: 'string' },
+            nutrients: { $ref: '#/components/schemas/IFoodNutrients' },
+            category: { $ref: '#/components/schemas/IFoodCategory' },
+            categoryLabel: { $ref: '#/components/schemas/IFoodCategoryLabel' },
+            image: { type: 'string' },
+          },
+        },
+        IFoodNutrients: {
+          type: 'string',
+          enum: ['ENERC_KCAL', 'PROCNT', 'FAT', 'FIBTG', 'CHOCDF'],
+        },
+        IFoodMeasure: {
+          type: 'object',
+          properties: {
+            uri: { type: 'string' },
+            label: { $ref: '#/components/schemas/IFoodMeasures' },
+            weight: { type: 'number' },
+            qualified: {
+              type: 'array',
+              items: { $ref: '#/components/schemas/IFoodQualifier' },
+              optional: true,
+            },
+          },
+        },
+        IFoodQualifier: {
+          type: 'object',
+          properties: {
+            uri: { type: 'string' },
+            label: { type: 'string', enum: ['large', 'medium', 'small'] },
+            weight: { type: 'number' },
+          },
+        },
+        IFoodCategory: {
+          type: 'string',
+          enum: ['generic-foods', 'packaged-foods', 'generic-meals', 'fast-foods'],
+        },
+        IFoodCategoryLabel: {
+          type: 'string',
+          enum: ['food', 'meal'],
+        },
+        IFoodMeasures: {
+          type: 'string',
+          enum: [
+            'Ounce',
+            'Gram',
+            'pound',
+            'kilogram',
+            'Pinch',
+            'Liter',
+            'Fluid ounce',
+            'Gallon',
+            'Pint',
+            'Quart',
+            'Milliliter',
+            'Drop',
+            'Cup',
+            'Tablespoon',
+            'Teaspoon',
+          ],
+        },
       },
     },
     security: [
