@@ -1,18 +1,24 @@
 import { getRecipes, getDetailsRecipe } from './recipes'
 import {
-  getExercises,
+  getExerciseId,
   getExerciseName,
+  getExercises,
   getExercisesBodyPart,
   getExercisesEquipment,
   getExercisesTarget,
 } from './exercises'
+import { getFoods } from './foods'
+import { getMealPlaner } from './mealPlanner'
 
 export {
   getDetailsRecipe,
-  getExercises,
+  getExerciseId,
   getExerciseName,
+  getExercises,
   getExercisesBodyPart,
   getExercisesEquipment,
   getExercisesTarget,
+  getFoods,
+  getMealPlaner,
   getRecipes,
 }

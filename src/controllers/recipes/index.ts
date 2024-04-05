@@ -31,8 +31,6 @@ const getRecipes = async (
   try {
     const { query } = req
 
-    // const pattern = /^\d+(?:-\d+)?$|^\d+\+$/
-
     const q = query.q as string
     const health = query.health as THealth
     const cuisineType = query.cuisineType as TCuisineType
@@ -74,13 +72,17 @@ const getRecipes = async (
       excludedParams += excluded.map((item) => `&excluded=${item}`).join('')
     }
 
-    const baseUrl = `${config.services.recipes.url}?type=public&app_id=${apiId}&app_key=${apiKey}${excludedParams}${nutrientsParams}`
+    const baseUrl = `${config.services.recipes.url}?type=public&app_id=${apiId}&app_key=${apiKey}&random=true${excludedParams}${nutrientsParams}`
 
     const response = await axios.get(baseUrl, { params })
+
     const result: IRecipes = {
       count: response.data.count,
       from: response.data.from,
-      hits: response.data.hits.map((hit: IRecipe) => ({ ...hit.recipe, _links: null })),
+      hits: response.data.hits.map((hit: { recipe: IRecipe[] }) => ({
+        ...hit.recipe,
+        _links: null,
+      })),
       nextPage: getNextPageParam(response.data?._links?.next?.href) ?? null,
       to: response.data.to,
     }

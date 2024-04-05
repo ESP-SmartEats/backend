@@ -1,197 +1,388 @@
 {
-  "info": {
-    "_postman_id": "d5fee736-fb07-44f8-a8b2-4b9d683c4bca",
-    "name": "SmartEats",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "14832304"
-  },
-  "item": [
-    {
-      "name": "Recipes",
-      "item": [
-        {
-          "name": "Get recipes",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{smart-eats-local}}/recipes?health=alcohol-free&cuisineType=American&diet=low-carb&mealType=Lunch&dishType=Main course&calories=500-1000&time=10-30&excluded=pretzel&q=chicken-curry&excluded=vinegar&nextPage=CHcVQBtNNQphDmgVQntAEX4BYlV1GgUEQWdEBWEaa1xxAQQOUXlSUWERZ110BlUFRzZFADQRYV1yAQICFmNJBTYSNlEiBVAVLnlSVSBMPkd5AAMbUSYRVTdgMgksRlpSAAcRXTVGcV84SU4=&FAT=15+",
-              "host": ["{{smart-eats-local}}"],
-              "path": ["recipes"],
-              "query": [
-                {
-                  "key": "health",
-                  "value": "alcohol-free"
-                },
-                {
-                  "key": "cuisineType",
-                  "value": "American"
-                },
-                {
-                  "key": "diet",
-                  "value": "low-carb"
-                },
-                {
-                  "key": "mealType",
-                  "value": "Lunch"
-                },
-                {
-                  "key": "dishType",
-                  "value": "Main course"
-                },
-                {
-                  "key": "calories",
-                  "value": "500-1000"
-                },
-                {
-                  "key": "time",
-                  "value": "10-30"
-                },
-                {
-                  "key": "excluded",
-                  "value": "pretzel"
-                },
-                {
-                  "key": "q",
-                  "value": "chicken-curry"
-                },
-                {
-                  "key": "excluded",
-                  "value": "vinegar"
-                },
-                {
-                  "key": "nextPage",
-                  "value": "CHcVQBtNNQphDmgVQntAEX4BYlV1GgUEQWdEBWEaa1xxAQQOUXlSUWERZ110BlUFRzZFADQRYV1yAQICFmNJBTYSNlEiBVAVLnlSVSBMPkd5AAMbUSYRVTdgMgksRlpSAAcRXTVGcV84SU4="
-                },
-                {
-                  "key": "FAT",
-                  "value": "15+"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get recipe detail with id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{smart-eats-local}}/recipes/018cd9b9ab4dbb9286aa1fe5e0ed7628",
-              "host": ["{{smart-eats-local}}"],
-              "path": ["recipes", "018cd9b9ab4dbb9286aa1fe5e0ed7628"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Exercises",
-      "item": [
-        {
-          "name": "Get exercises",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{smart-eats-local}}/exercises",
-              "host": ["{{smart-eats-local}}"],
-              "path": ["exercises"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get exercises body part",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{smart-eats-local}}/exercises/body-part/back",
-              "host": ["{{smart-eats-local}}"],
-              "path": ["exercises", "body-part", "back"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get exercises equipment",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{smart-eats-local}}/exercises/equipment/band",
-              "host": ["{{smart-eats-local}}"],
-              "path": ["exercises", "equipment", "band"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get exercises tagert",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{smart-eats-local}}/exercises/target/abductors",
-              "host": ["{{smart-eats-local}}"],
-              "path": ["exercises", "target", "abductors"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get exercises name",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "X-Api-Key",
-                "value": "lPaxMYvZboS0/2Rj7+yAXw==aUeVmAwk48ltxWCb",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{smart-eats-local}}/exercises/name/jump",
-              "host": ["{{smart-eats-local}}"],
-              "path": ["exercises", "name", "jump"]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "variable": [
-    {
-      "key": "smart-eats-url",
-      "value": "localhost:8080"
-    }
-  ]
+	"info": {
+		"_postman_id": "d5fee736-fb07-44f8-a8b2-4b9d683c4bca",
+		"name": "SmartEats",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14832304"
+	},
+	"item": [
+		{
+			"name": "Recipes",
+			"item": [
+				{
+					"name": "Get recipes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjgwNzhkMGViNzdhMjdlNGUxMGMzMTFmZTcxZDgwM2I5MmY3NjYwZGYiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVGhpIEhpZW4gUGhhbSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLX3JBUlpZYmRZWUlJUnk2b2hqTEdHUEZwLVNDZ2V6V0czREZDaC1obHBpaVo5RVJuWD1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9zbWFydC1lYXRzLWVwaXRlY2giLCJhdWQiOiJzbWFydC1lYXRzLWVwaXRlY2giLCJhdXRoX3RpbWUiOjE3MTIyMTkyMzYsInVzZXJfaWQiOiJvcHptUXFseTRXTkxxSEtWR2JQZUtpZmRyMHYyIiwic3ViIjoib3B6bVFxbHk0V05McUhLVkdiUGVLaWZkcjB2MiIsImlhdCI6MTcxMjMwNTc2NCwiZXhwIjoxNzEyMzA5MzY0LCJlbWFpbCI6ImhhbmloYW5uaGlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDE4NDM2NjY2NzUyMTU5NDUyNDEiXSwiZW1haWwiOlsiaGFuaWhhbm5oaUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.C988oMp1gHYbQuhss9n-SshJToaeDj2FiKmbpX1TODxyRfbxGqr6wiP-cZ8qdZV015acPvLpPmGunU9ozCvm6XZM2zdMX_jX2nJqVTbqIj4G50Kr5-QkrtbhppQcnCeyUZG-e8W4pP0j5XrAPkzd7COQmCmv-6a5c2kIBR3sahebav3aQ5QuV_Mtry83NZyibjvVLv0aHYic7K3VTgJl_IP9c0ApGuE_whHlLKsmfbc0R90FNp5ebRCfSgDun-SNc8gIEHoAHlq2PiqRx_AHWuOcdytibYPwo68mBGbr6ustPMkEellPBUhxPc_wZZJJEeqgFtWbGMtrqK7mRaDrKQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/recipes?health=alcohol-free&cuisineType=American&diet=low-carb&excluded=pretzel&calories=100-300&mealType=Breakfast&",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"recipes"
+							],
+							"query": [
+								{
+									"key": "health",
+									"value": "alcohol-free"
+								},
+								{
+									"key": "cuisineType",
+									"value": "American"
+								},
+								{
+									"key": "diet",
+									"value": "low-carb"
+								},
+								{
+									"key": "mealType",
+									"value": "Lunch",
+									"disabled": true
+								},
+								{
+									"key": "dishType",
+									"value": "Main course",
+									"disabled": true
+								},
+								{
+									"key": "time",
+									"value": "10-30",
+									"disabled": true
+								},
+								{
+									"key": "excluded",
+									"value": "pretzel"
+								},
+								{
+									"key": "q",
+									"value": "chicken-curry",
+									"disabled": true
+								},
+								{
+									"key": "excluded",
+									"value": "vinegar",
+									"disabled": true
+								},
+								{
+									"key": "nextPage",
+									"value": "CHcVQBtNNQphDmgVQntAEX4BZkt3AAUPSmZCCmcRa11zDAUVX3dEVzcVagBzAFABEWwTBGEXZlJwBgIERGBGAGEaYgYhDBFqX3cWQT1OcV9xBE4=",
+									"disabled": true
+								},
+								{
+									"key": "FAT",
+									"value": "15+",
+									"disabled": true
+								},
+								{
+									"key": "calories",
+									"value": "100-300"
+								},
+								{
+									"key": "mealType",
+									"value": "Breakfast"
+								},
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get recipe detail with id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlNzgyM2VmMDFiZDRkMmI5NjI3NDE2NThkMjA4MDdlZmVlNmRlNWMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVGhpIEhpZW4gUGhhbSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLRDJjb1g1cE9WcUphUDU1WTlXeGVKY1NNT25ndndCVDNqamRCc2ZNUWh6ejg9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc21hcnQtZWF0cy1lcGl0ZWNoIiwiYXVkIjoic21hcnQtZWF0cy1lcGl0ZWNoIiwiYXV0aF90aW1lIjoxNzAyNjc3MzEyLCJ1c2VyX2lkIjoieUhwb0IwOWdJR2huTlNncHpBRExxRHpDQ3c5MiIsInN1YiI6InlIcG9CMDlnSUdobk5TZ3B6QURMcUR6Q0N3OTIiLCJpYXQiOjE3MDI3NTM0NTgsImV4cCI6MTcwMjc1NzA1OCwiZW1haWwiOiJoYW5paGFubmhpQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTAxODQzNjY2Njc1MjE1OTQ1MjQxIl0sImVtYWlsIjpbImhhbmloYW5uaGlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.OeqcT5JeWRtCcHR5nKP71rGUGFN8W3JggKKhXPLLOuzMstn6NqEBVcWEUDA3wCQfq_Hv95yX88o2XYpKg43HSalKwqlqUd0hBXbwxcxS_6TN6MG0YBn3H-XVG2NwHLw_ltwtQYi9Sdrfrtv7v-X0rp6aJsM1RyFiQ_xBEQ4GhGcubIFFOgAZHY5vSCCcA5LIxp6_KX2mvgsW_djiP06DxpWgBFifYZfBPBj24sFHPM831Vw-S369-XQmIkRxw9140nHKS5CD_YbEjEbx3NA5d_wVHVU_hYuJC2zHc-AxsAMn2RL6VzQIfCWeTn4G6hFPm7WXvHCUoGPMQgGnX8H8gQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/recipes/018cd9b9ab4dbb9286aa1fe5e0ed7628",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"recipes",
+								"018cd9b9ab4dbb9286aa1fe5e0ed7628"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exercises",
+			"item": [
+				{
+					"name": "Get exercises",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjgwNzhkMGViNzdhMjdlNGUxMGMzMTFmZTcxZDgwM2I5MmY3NjYwZGYiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVGhpIEhpZW4gUGhhbSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLX3JBUlpZYmRZWUlJUnk2b2hqTEdHUEZwLVNDZ2V6V0czREZDaC1obHBpaVo5RVJuWD1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9zbWFydC1lYXRzLWVwaXRlY2giLCJhdWQiOiJzbWFydC1lYXRzLWVwaXRlY2giLCJhdXRoX3RpbWUiOjE3MTIyMTkyMzYsInVzZXJfaWQiOiJvcHptUXFseTRXTkxxSEtWR2JQZUtpZmRyMHYyIiwic3ViIjoib3B6bVFxbHk0V05McUhLVkdiUGVLaWZkcjB2MiIsImlhdCI6MTcxMjMwOTk5OSwiZXhwIjoxNzEyMzEzNTk5LCJlbWFpbCI6ImhhbmloYW5uaGlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDE4NDM2NjY2NzUyMTU5NDUyNDEiXSwiZW1haWwiOlsiaGFuaWhhbm5oaUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.fD2iBprrH5Kgop_UUrVKwS6PZnFzUugjxC9QbA3DGVNt7BWbVaKbhhK3WGZhHuLByJ7VMOR8r2QrKTK9zVG9QrdXXM8nK4zts3vkgOIH6kaa-G5Y-MjF4K201oQ2P7CsXPb3V9TyadPcet-mAl7lVwzR8zhdOLIaSwHteISHPzEhEjapT66oPcjfT5FFy7qVUBAOPXCfXiIjUKlpxISgIhvQR0V_M8E3UJByVX3yXepPBdlyjxPtyjFcVUp4xzUC-PFk2nLpuNJIIKIqzH2Wav_CyYmszeTiykb0BGpdss6aWLPHrnPApf_QJxaG3NRi5gqfkWuaZdB2woVF3umwlg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/exercises",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercises body part",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlNzgyM2VmMDFiZDRkMmI5NjI3NDE2NThkMjA4MDdlZmVlNmRlNWMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVGhpIEhpZW4gUGhhbSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLRDJjb1g1cE9WcUphUDU1WTlXeGVKY1NNT25ndndCVDNqamRCc2ZNUWh6ejg9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc21hcnQtZWF0cy1lcGl0ZWNoIiwiYXVkIjoic21hcnQtZWF0cy1lcGl0ZWNoIiwiYXV0aF90aW1lIjoxNzAyNjc3MzEyLCJ1c2VyX2lkIjoieUhwb0IwOWdJR2huTlNncHpBRExxRHpDQ3c5MiIsInN1YiI6InlIcG9CMDlnSUdobk5TZ3B6QURMcUR6Q0N3OTIiLCJpYXQiOjE3MDI3NTM0NTgsImV4cCI6MTcwMjc1NzA1OCwiZW1haWwiOiJoYW5paGFubmhpQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTAxODQzNjY2Njc1MjE1OTQ1MjQxIl0sImVtYWlsIjpbImhhbmloYW5uaGlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.OeqcT5JeWRtCcHR5nKP71rGUGFN8W3JggKKhXPLLOuzMstn6NqEBVcWEUDA3wCQfq_Hv95yX88o2XYpKg43HSalKwqlqUd0hBXbwxcxS_6TN6MG0YBn3H-XVG2NwHLw_ltwtQYi9Sdrfrtv7v-X0rp6aJsM1RyFiQ_xBEQ4GhGcubIFFOgAZHY5vSCCcA5LIxp6_KX2mvgsW_djiP06DxpWgBFifYZfBPBj24sFHPM831Vw-S369-XQmIkRxw9140nHKS5CD_YbEjEbx3NA5d_wVHVU_hYuJC2zHc-AxsAMn2RL6VzQIfCWeTn4G6hFPm7WXvHCUoGPMQgGnX8H8gQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/exercises/body-part/back",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"exercises",
+								"body-part",
+								"back"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercises equipment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/exercises/equipment/band",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"exercises",
+								"equipment",
+								"band"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercises tagert",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/exercises/target/abductors",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"exercises",
+								"target",
+								"abductors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercises name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/exercises/name/jumph",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"exercises",
+								"name",
+								"jumph"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get exercises id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlNzgyM2VmMDFiZDRkMmI5NjI3NDE2NThkMjA4MDdlZmVlNmRlNWMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVGhpIEhpZW4gUGhhbSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLRDJjb1g1cE9WcUphUDU1WTlXeGVKY1NNT25ndndCVDNqamRCc2ZNUWh6ejg9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vc21hcnQtZWF0cy1lcGl0ZWNoIiwiYXVkIjoic21hcnQtZWF0cy1lcGl0ZWNoIiwiYXV0aF90aW1lIjoxNzAyNjc1NjM5LCJ1c2VyX2lkIjoieUhwb0IwOWdJR2huTlNncHpBRExxRHpDQ3c5MiIsInN1YiI6InlIcG9CMDlnSUdobk5TZ3B6QURMcUR6Q0N3OTIiLCJpYXQiOjE3MDI2NzU2MzksImV4cCI6MTcwMjY3OTIzOSwiZW1haWwiOiJoYW5paGFubmhpQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTAxODQzNjY2Njc1MjE1OTQ1MjQxIl0sImVtYWlsIjpbImhhbmloYW5uaGlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.CVxJV7bAQf3nE97t8DZuVxnqgkv8pykqclUo-ePMKbf7WgPTojmGuRDE94xHZStKoQD6iLiHGwEx9A1WLpEwBLEO9BdAX078FZbEftxfKs4PrZdS8XyAWQEn_XqmjXvyR8x_cwbEzzGWgHGVIMAOvQHfaYA-sxr3NJtSD-nDriJTt8EzrHILHg_Y0Tu2SJ_mIngVIXu-KncfUrWjIc9a3BJ1n29rnIwbK-tOQey_3wVv445rbwuvWod6DRaq18ww1smr3VJ8HECGtB6ZuPjxcI2ihklgNVA4kwJKP1VEKHW5Ro1VacYCpqKD74Mz9YziUm3x1C4kpeDFQ1CsNYthGQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/exercises/exercise/0001",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"exercises",
+								"exercise",
+								"0001"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Meal Planner",
+			"item": [
+				{
+					"name": "Get meal planner",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjgwNzhkMGViNzdhMjdlNGUxMGMzMTFmZTcxZDgwM2I5MmY3NjYwZGYiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVGhpIEhpZW4gUGhhbSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLX3JBUlpZYmRZWUlJUnk2b2hqTEdHUEZwLVNDZ2V6V0czREZDaC1obHBpaVo5RVJuWD1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9zbWFydC1lYXRzLWVwaXRlY2giLCJhdWQiOiJzbWFydC1lYXRzLWVwaXRlY2giLCJhdXRoX3RpbWUiOjE3MTIyMTkyMzYsInVzZXJfaWQiOiJvcHptUXFseTRXTkxxSEtWR2JQZUtpZmRyMHYyIiwic3ViIjoib3B6bVFxbHk0V05McUhLVkdiUGVLaWZkcjB2MiIsImlhdCI6MTcxMjMwOTk5OSwiZXhwIjoxNzEyMzEzNTk5LCJlbWFpbCI6ImhhbmloYW5uaGlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDE4NDM2NjY2NzUyMTU5NDUyNDEiXSwiZW1haWwiOlsiaGFuaWhhbm5oaUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.fD2iBprrH5Kgop_UUrVKwS6PZnFzUugjxC9QbA3DGVNt7BWbVaKbhhK3WGZhHuLByJ7VMOR8r2QrKTK9zVG9QrdXXM8nK4zts3vkgOIH6kaa-G5Y-MjF4K201oQ2P7CsXPb3V9TyadPcet-mAl7lVwzR8zhdOLIaSwHteISHPzEhEjapT66oPcjfT5FFy7qVUBAOPXCfXiIjUKlpxISgIhvQR0V_M8E3UJByVX3yXepPBdlyjxPtyjFcVUp4xzUC-PFk2nLpuNJIIKIqzH2Wav_CyYmszeTiykb0BGpdss6aWLPHrnPApf_QJxaG3NRi5gqfkWuaZdB2woVF3umwlg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/meal-planner?height=162&weight=60&age=25&gender=Female&weightChange=1&timeDuration=1&activityLevel=1.725",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"meal-planner"
+							],
+							"query": [
+								{
+									"key": "height",
+									"value": "162"
+								},
+								{
+									"key": "weight",
+									"value": "60"
+								},
+								{
+									"key": "age",
+									"value": "25"
+								},
+								{
+									"key": "gender",
+									"value": "Female"
+								},
+								{
+									"key": "weightChange",
+									"value": "1"
+								},
+								{
+									"key": "timeDuration",
+									"value": "1"
+								},
+								{
+									"key": "activityLevel",
+									"value": "1.725"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Foods",
+			"item": [
+				{
+					"name": "foods",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjgwNzhkMGViNzdhMjdlNGUxMGMzMTFmZTcxZDgwM2I5MmY3NjYwZGYiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiVGhpIEhpZW4gUGhhbSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLX3JBUlpZYmRZWUlJUnk2b2hqTEdHUEZwLVNDZ2V6V0czREZDaC1obHBpaVo5RVJuWD1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9zbWFydC1lYXRzLWVwaXRlY2giLCJhdWQiOiJzbWFydC1lYXRzLWVwaXRlY2giLCJhdXRoX3RpbWUiOjE3MTIyMTkyMzYsInVzZXJfaWQiOiJvcHptUXFseTRXTkxxSEtWR2JQZUtpZmRyMHYyIiwic3ViIjoib3B6bVFxbHk0V05McUhLVkdiUGVLaWZkcjB2MiIsImlhdCI6MTcxMjIyNDUxMSwiZXhwIjoxNzEyMjI4MTExLCJlbWFpbCI6ImhhbmloYW5uaGlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDE4NDM2NjY2NzUyMTU5NDUyNDEiXSwiZW1haWwiOlsiaGFuaWhhbm5oaUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJnb29nbGUuY29tIn19.AkjZSqilsAA45ymqESNfOanJj0_1QFQoVUc78pebRdZVdKVqToOo1vFqqPR1S-Fpb44IftvIHJT7DhzzuTNNHWXD869z1DoM3Zex37ARxGrA1_p4JDoC02DPHq3NyG8wUNmIx-KAhnnh_5ug9CwuErDuCsBPQPaPqBxdb43eGtdqF9MxVZ3mNRiNuS3JAl4VLpph94MLeWSb4ut_Fh_DJXlqz3NK7yAzkvcqfp1CzSoKqklwxDIEMknksuuAnttStDfSGfPfFH5-4nRfPqekGOHLuCe7E6RBjLopwvpVewWMI5f2hV0MkM6mfWYpX1412MT80171EZP6C3E_ZCI1LA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{smart-eats-local}}/foods?ingr=apple and chicken",
+							"host": [
+								"{{smart-eats-local}}"
+							],
+							"path": [
+								"foods"
+							],
+							"query": [
+								{
+									"key": "ingr",
+									"value": "apple and chicken"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "smart-eats-url",
+			"value": "localhost:8080"
+		}
+	]
 }
