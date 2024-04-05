@@ -507,6 +507,113 @@ const options: swaggerJsdoc.Options = {
             'Teaspoon',
           ],
         },
+        Gender: {
+          type: 'string',
+          enum: ['Male', 'Female'],
+        },
+        GoalType: {
+          type: 'string',
+          enum: ['Lose', 'Gain', 'Maintain'],
+        },
+        ActivityLevel: {
+          type: 'string',
+          enum: [
+            'NotActive',
+            'Sedentary',
+            'LightlyActive',
+            'ModeratelyActive',
+            'VeryActive',
+            'ExtraActive',
+          ],
+        },
+        IMealPlanRequestParams: {
+          type: 'object',
+          properties: {
+            height: { type: 'number' },
+            weight: { type: 'number' },
+            age: { type: 'number' },
+            gender: { $ref: '#/components/schemas/Gender' },
+            weightChange: { type: 'number' },
+            goalType: { $ref: '#/components/schemas/GoalType' },
+            timeDuration: { type: 'number' },
+            activityLevel: { $ref: '#/components/schemas/ActivityLevel' },
+            cuisineType: { $ref: '#/components/schemas/TCuisineType' },
+            dishType: { $ref: '#/components/schemas/TDishType' },
+            health: { $ref: '#/components/schemas/THealth' },
+            diet: { $ref: '#/components/schemas/TDiet' },
+            excluded: { type: 'array', items: { type: 'string' } },
+          },
+        },
+        IMealPlan: {
+          type: 'object',
+          properties: {
+            breakfast: { type: 'number' },
+            lunch: { type: 'number' },
+            dinner: { type: 'number' },
+            snack: { type: 'number' },
+          },
+        },
+        IMealPlanner: {
+          type: 'object',
+          properties: {
+            bmi: { type: 'number' },
+            dailyCaloriesIntake: { type: 'number' },
+            dailyCaloriesToBurn: { type: 'number' },
+            mealPlan: { $ref: '#/components/schemas/IMealPlanDaily' },
+            time: { type: 'number' },
+            weightChange: { type: 'number' },
+          },
+        },
+        IMealPlanDaily: {
+          type: 'object',
+          properties: {
+            day: { type: 'number' },
+            meals: {
+              type: 'object',
+              properties: {
+                breakfast: {
+                  type: 'object',
+                  properties: {
+                    calories: { type: 'number' },
+                    recipes: { $ref: '#/components/schemas/IRecipe' },
+                  },
+                },
+                lunch: {
+                  type: 'object',
+                  properties: {
+                    calories: { type: 'number' },
+                    recipes: { $ref: '#/components/schemas/IRecipe' },
+                  },
+                },
+                dinner: {
+                  type: 'object',
+                  properties: {
+                    calories: { type: 'number' },
+                    recipes: { $ref: '#/components/schemas/IRecipe' },
+                  },
+                },
+                snack: {
+                  type: 'object',
+                  properties: {
+                    calories: { type: 'number' },
+                    recipes: { $ref: '#/components/schemas/IRecipe' },
+                  },
+                },
+              },
+            },
+            exercises: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  calories: { type: 'number' },
+                  exercises: { $ref: '#/components/schemas/IExercise' },
+                  time: { type: 'number' },
+                },
+              },
+            },
+          },
+        },
       },
     },
     security: [
@@ -531,6 +638,7 @@ const options: swaggerJsdoc.Options = {
     './src/routes/recipes/index.ts',
     './src/routes/exercises/index.ts',
     './src/routes/foods/index.ts',
+    './src/routes/mealPlanner/index.ts',
   ],
 }
 
