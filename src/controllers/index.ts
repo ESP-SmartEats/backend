@@ -8,6 +8,7 @@ import {
   getExercisesTarget,
 } from './exercises'
 import { getFoods } from './foods'
+import { getMealPlaner } from './mealPlanner'
 
 export {
   getDetailsRecipe,
@@ -18,5 +19,6 @@ export {
   getExercisesEquipment,
   getExercisesTarget,
   getFoods,
+  getMealPlaner,
   getRecipes,
 }
