@@ -614,6 +614,22 @@ const options: swaggerJsdoc.Options = {
             },
           },
         },
+        IFoodDetection: {
+          type: 'object',
+          properties: {
+            label: { type: 'string' },
+            score: { type: 'number' },
+          },
+        },
+        IFoodDetected: {
+          type: 'object',
+          properties: {
+            label: { type: 'string' },
+            score: { type: 'number' },
+            food: { type: 'array', items: { $ref: '#/components/schemas/IFood' } },
+            nextPage: { type: ['string', 'null'] },
+          },
+        },
       },
     },
     security: [
