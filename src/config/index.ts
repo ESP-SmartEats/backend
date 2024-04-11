@@ -21,6 +21,11 @@ const config = {
       host: process.env.EXERCISE_DB_API_HOST ?? 'exercisedb.p.rapidapi.com',
       url: process.env.EXERCISE_DB_URL ?? 'https://exercisedb.p.rapidapi.com/exercises',
     },
+    huggingFace: {
+      apiKey: process.env.HUGGING_FACE_API_KEY,
+      url:
+        process.env.HUGGING_FACE_URL ?? 'https://api-inference.huggingface.co/models/nateraw/food',
+    },
     recipes: {
       url: process.env.EDAMAM_URL ?? 'https://api.edamam.com/api/recipes/v2',
       apiKey: process.env.EDAMAM_API_KEY,

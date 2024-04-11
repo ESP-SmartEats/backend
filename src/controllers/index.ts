@@ -9,6 +9,7 @@ import {
 } from './exercises'
 import { getFoods } from './foods'
 import { getMealPlaner } from './mealPlanner'
+import { getFoodDetections } from './foodDetections'
 
 export {
   getDetailsRecipe,
@@ -18,6 +19,7 @@ export {
   getExercisesBodyPart,
   getExercisesEquipment,
   getExercisesTarget,
+  getFoodDetections,
   getFoods,
   getMealPlaner,
   getRecipes,

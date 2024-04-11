@@ -614,6 +614,22 @@ const options: swaggerJsdoc.Options = {
             },
           },
         },
+        IFoodDetection: {
+          type: 'object',
+          properties: {
+            label: { type: 'string' },
+            score: { type: 'number' },
+          },
+        },
+        IFoodDetected: {
+          type: 'object',
+          properties: {
+            label: { type: 'string' },
+            score: { type: 'number' },
+            food: { type: 'array', items: { $ref: '#/components/schemas/IFood' } },
+            nextPage: { type: ['string', 'null'] },
+          },
+        },
       },
     },
     security: [
@@ -639,6 +655,7 @@ const options: swaggerJsdoc.Options = {
     './src/routes/exercises/index.ts',
     './src/routes/foods/index.ts',
     './src/routes/mealPlanner/index.ts',
+    './src/routes/foodDetections/index.ts',
   ],
 }
 
