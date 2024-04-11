@@ -188,19 +188,19 @@ const getMealPlaner = async (
         day: i + 1,
         meals: {
           breakfast: {
-            calories: breakfast.calories,
+            calories: breakfast.recipe.calories / breakfast.recipe.yield,
             recipe: breakfast,
           },
           lunch: {
-            calories: lunch.calories,
+            calories: lunch.recipe.calories / lunch.recipe.yield,
             recipe: lunch,
           },
           snack: {
-            calories: snack.calories,
+            calories: snack.recipe.calories / snack.recipe.yield,
             recipe: snack,
           },
           dinner: {
-            calories: dinner.calories,
+            calories: dinner.recipe.calories / dinner.recipe.yield,
             recipe: dinner,
           },
         },
