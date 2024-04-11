@@ -118,8 +118,8 @@ export const calculateDailyCaloriesToBurn = (
 export const calculateCustomMealCalories = (dailyCalories: number): IMealPlan => {
   // Assuming a standard distribution of calories among meals
   const breakfastRatio = 0.25
-  const lunchRatio = 0.35
-  const dinnerRatio = 0.3
+  const lunchRatio = 0.4
+  const dinnerRatio = 0.35
   const snackRatio = 0.1
 
   const breakfast = dailyCalories * breakfastRatio
