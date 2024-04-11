@@ -32,7 +32,7 @@ const getFoods = async (
       ingr,
     }
 
-    const baseUrl = `${config.services.recipes.urlFoodDatabase}?type=public&app_id=${apiId}&app_key=${apiKey}&ingr=${ingr}&nutrition-type=logging`
+    const baseUrl = `${config.services.recipes.urlFoodDatabase}?type=public&app_id=${apiId}&app_key=${apiKey}&nutrition-type=logging`
 
     const response = await axios.get(baseUrl, { params })
 

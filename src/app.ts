@@ -7,6 +7,7 @@ import swaggerUi from 'swagger-ui-express'
 import admin from 'firebase-admin'
 import fs from 'fs'
 import dotenv from 'dotenv'
+import bodyParser from 'body-parser'
 
 dotenv.config()
 const data = {
@@ -36,6 +37,9 @@ admin.initializeApp({
 
 const app = express()
 const port = config.server.port ?? 8080
+
+// Middleware to parse application/octet-stream requests
+app.use(bodyParser.raw({ type: 'application/octet-stream', limit: '50mb' }))
 
 const corsOptions = {
   origin: config.server.origin,
