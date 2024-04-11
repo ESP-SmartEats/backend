@@ -1,6 +1,6 @@
 import { Router, type Request, type Response } from 'express'
 import { getFoods } from '../../controllers'
-import verifyToken from '../..//middleWare'
+import verifyToken from '../../middleWare'
 
 const router = Router()
 

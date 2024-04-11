@@ -639,6 +639,7 @@ const options: swaggerJsdoc.Options = {
     './src/routes/exercises/index.ts',
     './src/routes/foods/index.ts',
     './src/routes/mealPlanner/index.ts',
+    './src/routes/foodDetections/index.ts',
   ],
 }
 
