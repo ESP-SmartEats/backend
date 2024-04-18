@@ -80,7 +80,7 @@ const getRecipes = async (
       count: response.data.count,
       from: response.data.from,
       hits: response.data.hits.map((hit: { recipe: IRecipe[] }) => ({
-        ...hit.recipe,
+        ...hit,
         _links: null,
       })),
       nextPage: getNextPageParam(response.data?._links?.next?.href) ?? null,
