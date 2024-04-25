@@ -638,7 +638,7 @@ const options: swaggerJsdoc.Options = {
       },
     ],
     info: {
-      title: 'Express & Recipes API with Swagger',
+      title: 'Express & SmartEats API with Swagger',
       version: '1.0.0',
       description: '',
     },
