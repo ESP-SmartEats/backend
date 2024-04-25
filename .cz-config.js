@@ -8,6 +8,7 @@ module.exports = {
       { value: 'refactor', name: 'refactor: code changes that neither fix a bug nor add a feature' },
       { value: 'perf', name: 'perf: performance improvements' },
       { value: 'test', name: 'test: adding or modifying tests' },
+      { value: 'update', name: 'update: updating code due to external dependencies' },
     ],
     allowCustomScopes: false,
     appendBranchNameToCommitMessage: true

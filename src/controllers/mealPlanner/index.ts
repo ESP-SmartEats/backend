@@ -231,7 +231,7 @@ const getBMI = (
   res: Response,
 ): {
   bmi: number
-  status: BMILevel
+  bodyStatus: BMILevel
 } => {
   const { query } = req
   const { height, weight } = query
@@ -240,7 +240,7 @@ const getBMI = (
 
   return {
     bmi,
-    status:
+    bodyStatus:
       bmi < 18.5
         ? BMILevel.Underweight
         : bmi < 25
