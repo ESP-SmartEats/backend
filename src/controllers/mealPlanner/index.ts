@@ -1,26 +1,23 @@
 import config from '../../config'
 import type { Request, Response } from 'express'
 import { getParamValue } from '../recipes/helper'
+import { calculateBMR, calculateCaloriesIntakeAndBurn, calculateCustomMealCalories } from './helper'
+import axios from 'axios'
 import {
   ActivityLevel,
-  type Gender,
+  BMILevel,
   TMealType,
-  calculateBMR,
-  calculateCaloriesIntakeAndBurn,
-  calculateCustomMealCalories,
-} from './helper'
-import axios from 'axios'
-import type {
-  IExercise,
-  IMealPlanDaily,
-  IMealPlanRequestParams,
-  IMealPlanner,
-  IRecipe,
-  IRecipesRequestParams,
-  TCuisineType,
-  TDiet,
-  TDishType,
-  THealth,
+  type Gender,
+  type IExercise,
+  type IMealPlanDaily,
+  type IMealPlanRequestParams,
+  type IMealPlanner,
+  type IRecipe,
+  type IRecipesRequestParams,
+  type TCuisineType,
+  type TDiet,
+  type TDishType,
+  type THealth,
 } from '@hienpham512/smarteats'
 
 const apiKey = config.services.recipes.apiKey
@@ -84,7 +81,7 @@ const getMealPlaner = async (
     weightChange,
   }
 
-  const bmi = calculateBMR(mealPlanParams)
+  const bmr = calculateBMR(mealPlanParams)
   const { dailyCaloriesIntake, dailyCaloriesToBurn } = calculateCaloriesIntakeAndBurn(
     mealPlanParams,
     Number(activityLevel) as ActivityLevel,
@@ -209,7 +206,7 @@ const getMealPlaner = async (
     }
 
     const result: IMealPlanner = {
-      bmi,
+      bmr,
       dailyCaloriesBurn: dailyCaloriesToBurn,
       dailyCaloriesIntake,
       time: timeDuration ? Number(timeDuration) : 1,
@@ -229,4 +226,49 @@ const getMealPlaner = async (
   }
 }
 
-export { getMealPlaner }
+const getBMI = (
+  req: Request,
+  res: Response,
+): {
+  bmi: number
+  bodyStatus: BMILevel
+} => {
+  const { query } = req
+  const { height, weight } = query
+
+  const bmi = Number(weight) / ((Number(height) / 100) * (Number(height) / 100))
+
+  return {
+    bmi,
+    bodyStatus:
+      bmi < 18.5
+        ? BMILevel.Underweight
+        : bmi < 25
+        ? BMILevel.Normal
+        : bmi < 30
+        ? BMILevel.GainWeight
+        : bmi < 35
+        ? BMILevel.ObeseLevel1
+        : bmi < 40
+        ? BMILevel.ObeseLevel2
+        : BMILevel.ObeseLevel3,
+  }
+}
+
+const getBMR = (req: Request, res: Response): number => {
+  const { query } = req
+  const { height, weight, age } = query
+
+  const gender = query.gender as Gender
+
+  const bmr = calculateBMR({
+    age: Number(age),
+    height: Number(height),
+    weight: Number(weight),
+    gender,
+  })
+
+  return bmr
+}
+
+export { getMealPlaner, getBMI, getBMR }
