@@ -564,6 +564,34 @@ const options: swaggerJsdoc.Options = {
             weightChange: { type: 'number' },
           },
         },
+        BMILevel: {
+          type: 'string',
+          enum: [
+            'Underweight',
+            'Normal',
+            'Gain Weight',
+            'Obese Level 1',
+            'Obese Level 2',
+            'Obese Level 3',
+          ],
+        },
+        IBMI: {
+          type: 'object',
+          properties: {
+            bmi: { type: 'number' },
+            bodyStatus: {
+              type: 'string',
+              enum: [
+                'Underweight',
+                'Normal',
+                'Gain Weight',
+                'Obese Level 1',
+                'Obese Level 2',
+                'Obese Level 3',
+              ],
+            },
+          },
+        },
         IMealPlanDaily: {
           type: 'object',
           properties: {

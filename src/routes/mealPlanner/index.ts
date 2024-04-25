@@ -1,10 +1,12 @@
 import { Router, type Request, type Response } from 'express'
-import { getMealPlaner } from '../../controllers'
+import { getMealPlaner, getBMI, getBMR } from '../../controllers'
 import verifyToken from '../../middleWare'
 
 const router = Router()
 
 router.use('/meal-planner', verifyToken)
+router.use('bmi', verifyToken)
+router.use('bmr', verifyToken)
 
 /**
  * @swagger
@@ -105,6 +107,108 @@ router.use('/meal-planner', verifyToken)
  */
 router.get('/meal-planner', async (req: Request, res: Response): Promise<void> => {
   const result = await getMealPlaner(req, res)
+  res.json(result)
+  console.log(`Request: ${req.originalUrl}\n`)
+})
+
+// add swagger
+
+/**
+ * @swagger
+ * /bmi:
+ *  get:
+ *    summary: Get BMI
+ *    description: Retrieve the BMI based on specified parameters.
+ *    parameters:
+ *      - in: query
+ *        name: height
+ *        schema:
+ *          type: number
+ *        description: The height of the user.
+ *        required: true
+ *      - in: query
+ *        name: weight
+ *        schema:
+ *          type: number
+ *        description: The weight of the user.
+ *        required: true
+ *    responses:
+ *      200:
+ *        description: Successful response
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/IBMI'
+ *      400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/IError'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
+ */
+router.get('/bmi', (req: Request, res: Response): void => {
+  const result = getBMI(req, res)
+  res.json(result)
+  console.log(`Request: ${req.originalUrl}\n`)
+})
+
+/**
+ * @swagger
+ * /bmr:
+ *  get:
+ *    summary: Get BMR
+ *    description: Retrieve the BMI based on specified parameters.
+ *    parameters:
+ *      - in: query
+ *        name: height
+ *        schema:
+ *          type: number
+ *        description: The height of the user.
+ *        required: true
+ *      - in: query
+ *        name: weight
+ *        schema:
+ *          type: number
+ *        description: The weight of the user.
+ *        required: true
+ *      - in: query
+ *        name: age
+ *        schema:
+ *          type: number
+ *        description: The age of the user.
+ *        required: true
+ *      - in: query
+ *        name: gender
+ *        schema:
+ *          type: number
+ *        description: The gender of user.
+ *        required: true
+ *    responses:
+ *      200:
+ *        description: Successful response
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: number
+ *      400:
+ *        description: Bad request
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/IError'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            type: string
+ */
+router.get('/bmr', (req: Request, res: Response): void => {
+  const result = getBMR(req, res)
   res.json(result)
   console.log(`Request: ${req.originalUrl}\n`)
 })
