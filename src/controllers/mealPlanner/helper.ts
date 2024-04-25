@@ -1,42 +1,29 @@
-import type { IMealPlan, IMealPlanRequestParams } from '@hienpham512/smarteats'
+import {
+  ActivityLevel,
+  Gender,
+  type IMealPlan,
+  type IMealPlanRequestParams,
+} from '@hienpham512/smarteats'
 
-export enum Gender {
-  Male = 'Male',
-  Female = 'Female',
+export const calculateBMI = ({ weight, height }: { weight: number; height: number }): number => {
+  return weight / (height * height)
 }
 
-export enum GoalType {
-  Lose = 'Lose',
-  Gain = 'Gain',
-  Maintain = 'Maintain',
-}
-
-export enum TMealType {
-  BREAKFAST = 'Breakfast',
-  LUNCH = 'Lunch',
-  DINNER = 'Dinner',
-  SNACK = 'Snack',
-  TEATIME = 'Teatime',
-}
-
-export enum ActivityLevel {
-  NotActive = 1,
-  Sedentary = 1.2,
-  LightlyActive = 1.375,
-  ModeratelyActive = 1.55,
-  VeryActive = 1.725,
-  ExtraActive = 1.9,
-}
-
-export const calculateBMI = (params: IMealPlanRequestParams): number => {
-  return params.weight / (params.height * params.height)
-}
-
-export const calculateBMR = (params: IMealPlanRequestParams): number => {
-  if (params.gender === Gender.Male) {
-    return 88.362 + 13.397 * params.weight + 4.799 * params.height - 5.677 * params.age
+export const calculateBMR = ({
+  weight,
+  height,
+  age,
+  gender,
+}: {
+  weight: number
+  height: number
+  age: number
+  gender: Gender
+}): number => {
+  if (gender === Gender.Male) {
+    return 10 * weight + 6.25 * height - 5 * age + 5
   } else {
-    return 447.593 + 9.247 * params.weight + 3.098 * params.height - 4.33 * params.age
+    return 10 * weight + 6.25 * height - 5 * age - 161
   }
 }
 
