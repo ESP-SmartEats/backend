@@ -18,5 +18,5 @@
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-misused-promises": "off"
   },
-  "ignorePatterns": ["package.json", ".eslintrc.json", "src/postman/*.json"]
+  "ignorePatterns": ["package.json", ".eslintrc.json", "src/postman/*.json", "tsconfig.json"]
 }
