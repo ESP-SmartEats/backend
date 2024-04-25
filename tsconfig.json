@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES6",
+    "declaration": true,
+    "useDefineForClassFields": true,
     "module": "CommonJS",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
@@ -13,8 +20,8 @@
       "@/*": ["./src/*"],
       "@/config/*": ["./src/config/*"],
       "@/controllers/*": ["./src/controllers/*"],
-      "@/routes/*": ["./src/routes/*"]
+      "@/routes/*": ["./src/routes/*"],
+      "*": ["node_modules/*"]
     }
-    
   }
 }
