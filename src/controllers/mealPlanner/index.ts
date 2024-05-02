@@ -1,12 +1,19 @@
 import config from '../../config'
 import type { Request, Response } from 'express'
 import { getParamValue } from '../recipes/helper'
-import { calculateBMR, calculateCaloriesIntakeAndBurn, calculateCustomMealCalories } from './helper'
+import {
+  calculateBMI,
+  calculateBMR,
+  calculateCaloriesIntakeAndBurn,
+  calculateCustomMealCalories,
+} from './helper'
 import axios from 'axios'
 import {
   ActivityLevel,
   BMILevel,
+  type BodyPart,
   TMealType,
+  type Target,
   type Gender,
   type IExercise,
   type IMealPlanDaily,
@@ -14,10 +21,6 @@ import {
   type IMealPlanner,
   type IRecipe,
   type IRecipesRequestParams,
-  type TCuisineType,
-  type TDiet,
-  type TDishType,
-  type THealth,
 } from '@hienpham512/smarteats'
 
 const apiKey = config.services.recipes.apiKey
@@ -27,19 +30,107 @@ const apiKeyExercises = config.services.exercises.apiKey
 const host = config.services.exercises.host
 const urlExercises = config.services.exercises.url
 
-const listExercises = async (): Promise<IExercise[] | undefined> => {
+const listExercises = async ({
+  bodyParts,
+  targets,
+}: {
+  bodyParts: BodyPart[] | undefined
+  targets: Target[] | undefined
+}): Promise<IExercise[] | undefined> => {
   try {
-    const exercises = await axios.get(urlExercises, {
-      params: {
-        limit: 20,
-      },
-      headers: {
-        'X-RapidAPI-Key': apiKeyExercises,
-        'X-RapidAPI-Host': host,
-      },
-    })
+    let exercises: IExercise[] = []
 
-    return exercises.data
+    if (bodyParts && !targets) {
+      for (let i = 0; i < bodyParts.length; i++) {
+        const exercisesByBodyPart = await axios.get(
+          `${urlExercises}/bodyPart/${bodyParts[i].toString()}`,
+          {
+            params: {
+              limit: 20,
+            },
+            headers: {
+              'X-RapidAPI-Key': apiKeyExercises,
+              'X-RapidAPI-Host': host,
+            },
+          },
+        )
+        exercises = [...exercises, ...exercisesByBodyPart.data]
+      }
+    } else if (!bodyParts && targets) {
+      for (let i = 0; i < targets.length; i++) {
+        const exercisesByTarget = await axios.get(
+          `${urlExercises}/target/${targets[i].toString()}`,
+          {
+            params: {
+              limit: 20,
+            },
+            headers: {
+              'X-RapidAPI-Key': apiKeyExercises,
+              'X-RapidAPI-Host': host,
+            },
+          },
+        )
+
+        exercises = [...exercises, ...exercisesByTarget.data]
+      }
+    } else if (targets && bodyParts) {
+      for (let i = 0; i < targets.length; i++) {
+        const exercisesByTarget = await axios.get(
+          `${urlExercises}/target/${targets[i].toString()}`,
+          {
+            params: {
+              limit: 20,
+            },
+            headers: {
+              'X-RapidAPI-Key': apiKeyExercises,
+              'X-RapidAPI-Host': host,
+            },
+          },
+        )
+
+        exercises = [...exercises, ...(exercisesByTarget.data as IExercise[])]
+      }
+
+      for (let i = 0; i < bodyParts.length; i++) {
+        const exercisesByBodyPart = await axios.get(
+          `${urlExercises}/bodyPart/${bodyParts[i].toString()}`,
+          {
+            params: {
+              limit: 20,
+            },
+            headers: {
+              'X-RapidAPI-Key': apiKeyExercises,
+              'X-RapidAPI-Host': host,
+            },
+          },
+        )
+
+        const exercisesByBodyPartData = exercisesByBodyPart.data as IExercise[]
+
+        exercises = [
+          ...exercises,
+          ...exercisesByBodyPartData.filter((exercise: IExercise) => {
+            const foundSameId = exercises.find((ex) => ex.id === exercise.id)
+
+            return !foundSameId
+          }),
+        ]
+      }
+    } else {
+      const exercisesRandom = await axios.get(urlExercises, {
+        params: {
+          limit: 20,
+        },
+        headers: {
+          'X-RapidAPI-Key': apiKeyExercises,
+          'X-RapidAPI-Host': host,
+        },
+      })
+
+      return exercisesRandom.data
+    }
+
+    return exercises
   } catch {
     return undefined
   }
@@ -59,19 +150,52 @@ const getMealPlaner = async (
 > => {
   const { query } = req
 
-  const health = query.health as THealth
-  const cuisineType = query.cuisineType as TCuisineType
-  const diet = query.diet as TDiet
-  const dishType = query.dishType as TDishType
-  const excluded = query.excluded as string[] | string | undefined
-
   const { height, weight } = query
 
-  const timeDuration: number = query.timeDuration ? Number(query.timeDuration) : 1
+  const isWithExercises: boolean = !!query.isWithExercises
+  const isWithSnackTime: boolean = !!query.isWithSnackTime
+
+  const recipesParams: IRecipesRequestParams | undefined = query.recipesParams
+    ? (query.recipesParams as IRecipesRequestParams)
+    : undefined
+
+  const excluded = recipesParams ? (recipesParams.excluded as string[]) : []
+
+  const timeDuration: number = query.timeDuration
+    ? Number(query.timeDuration) > 4
+      ? 4
+      : Number(query.timeDuration)
+    : 1
+  const activityLevel = query.activityLevel
+    ? (query.activityLevel as unknown as ActivityLevel)
+    : ActivityLevel.NotActive
   const age = Number(query.age)
   const gender = query.gender as Gender
-  const weightChange = Number(query.weightChange)
-  const activityLevel = query.activityLevel ? query.activityLevel : ActivityLevel.NotActive
+
+  let warning = ''
+  let excludedParams: string = ''
+
+  let weightChange = query.weightChange ? Number(query.weightChange) : 0
+
+  if (weightChange / timeDuration < -1.25) {
+    weightChange = -1.25 * timeDuration
+    warning = 'Suggested: should only lose from 0.5kg to 1.25kg per week'
+  } else if (weightChange / timeDuration > Number(weight) * 0.005) {
+    weightChange = Number(weight) * 0.005
+    warning = 'Suggested: should only gain from 0.25% to 0.5% of body weight per week'
+  }
+
+  const exercisesParams = query.exercisesParams
+    ? (query.exercisesParams as {
+        exercisesPerDay?: number
+        bodyParts?: BodyPart[]
+        targets?: Target[]
+      })
+    : undefined
+
+  const exerciseQuantity = exercisesParams?.exercisesPerDay ? exercisesParams.exercisesPerDay : 1
+  const targets = exercisesParams?.targets ? exercisesParams.targets : undefined
+  const bodyParts = exercisesParams?.bodyParts ? exercisesParams.bodyParts : undefined
 
   const mealPlanParams: IMealPlanRequestParams = {
     height: Number(height),
@@ -81,83 +205,93 @@ const getMealPlaner = async (
     weightChange,
   }
 
+  const bmi = calculateBMI({
+    height: Number(height),
+    weight: Number(weight),
+  })
   const bmr = calculateBMR(mealPlanParams)
-  const { dailyCaloriesIntake, dailyCaloriesToBurn } = calculateCaloriesIntakeAndBurn(
-    mealPlanParams,
-    Number(activityLevel) as ActivityLevel,
-  )
-  const mealPlan = calculateCustomMealCalories(dailyCaloriesIntake)
 
-  let excludedParams = ''
-  if (typeof excluded === 'string') {
-    excludedParams += `&excluded=${excluded}`
-  } else if (Array.isArray(excluded)) {
-    excludedParams += excluded.map((item) => `&excluded=${item}`).join('')
-  }
+  excludedParams += excluded.map((item) => `&excluded=${item}`).join('')
+
+  const plans = calculateCaloriesIntakeAndBurn({
+    activityLevel,
+    age,
+    gender,
+    height: Number(height),
+    isWithExercises,
+    timeDuration,
+    weight: Number(weight),
+    weightChange,
+  })
 
   const baseUrl = `${config.services.recipes.url}?type=public&app_id=${apiId}&app_key=${apiKey}&random=true${excludedParams}`
 
-  const recipesParams: IRecipesRequestParams = {
-    cuisineType,
-    diet,
-    dishType,
-    health,
-  }
-
   try {
-    const breakfasts = (
-      await axios.get(baseUrl, {
-        params: {
-          ...recipesParams,
-          calories: getParamValue(
-            `${mealPlan.breakfast - mealPlan.breakfast * 0.3}-${mealPlan.breakfast}`,
-          ),
-          mealType: TMealType.BREAKFAST,
-        },
-      })
-    ).data.hits as IRecipe[]
-
-    const lunches = (
-      await axios.get(baseUrl, {
-        params: {
-          ...recipesParams,
-          calories: getParamValue(`${mealPlan.lunch - mealPlan.lunch * 0.3}-${mealPlan.lunch}`),
-          mealType: TMealType.LUNCH,
-        },
-      })
-    ).data.hits as IRecipe[]
-
-    const snacks = (
-      await axios.get(baseUrl, {
-        params: {
-          ...recipesParams,
-          calories: getParamValue(`${mealPlan.snack - mealPlan.snack * 0.3}-${mealPlan.snack}`),
-          mealType: TMealType.SNACK,
-        },
-      })
-    ).data.hits as IRecipe[]
-
-    const dinners = (
-      await axios.get(baseUrl, {
-        params: {
-          ...recipesParams,
-          calories: getParamValue(`${mealPlan.dinner - mealPlan.dinner * 0.3}-${mealPlan.dinner}`),
-          mealType: TMealType.DINNER,
-        },
-      })
-    ).data.hits as IRecipe[]
-
-    const exercises = await listExercises()
+    const exercises = isWithExercises
+      ? await listExercises({
+          bodyParts,
+          targets,
+        })
+      : undefined
 
     const daily: IMealPlanDaily[] = []
 
-    for (let i = 0; i < timeDuration * 7; i++) {
+    for (let i = 0; i < plans.length; i++) {
+      const { dailyCaloriesIntake, dailyCaloriesToBurn } = plans[i]
+      const mealPlan = calculateCustomMealCalories(dailyCaloriesIntake, isWithSnackTime)
+
+      const breakfasts = (
+        await axios.get(baseUrl, {
+          params: {
+            ...recipesParams,
+            calories: getParamValue(
+              `${mealPlan.breakfast - mealPlan.breakfast * 0.3}-${mealPlan.breakfast}`,
+            ),
+            mealType: TMealType.BREAKFAST,
+          },
+        })
+      ).data.hits as IRecipe[]
+
+      const lunches = (
+        await axios.get(baseUrl, {
+          params: {
+            ...recipesParams,
+            calories: getParamValue(`${mealPlan.lunch - mealPlan.lunch * 0.3}-${mealPlan.lunch}`),
+            mealType: TMealType.LUNCH,
+          },
+        })
+      ).data.hits as IRecipe[]
+
+      const snacks = mealPlan.snack
+        ? ((
+            await axios.get(baseUrl, {
+              params: {
+                ...recipesParams,
+                calories: getParamValue(
+                  `${mealPlan.snack - mealPlan.snack * 0.3}-${mealPlan.snack}`,
+                ),
+                mealType: TMealType.SNACK,
+              },
+            })
+          ).data.hits as IRecipe[])
+        : undefined
+
+      const dinners = (
+        await axios.get(baseUrl, {
+          params: {
+            ...recipesParams,
+            calories: getParamValue(
+              `${mealPlan.dinner - mealPlan.dinner * 0.3}-${mealPlan.dinner}`,
+            ),
+            mealType: TMealType.DINNER,
+          },
+        })
+      ).data.hits as IRecipe[]
+
       const breakfast = breakfasts[Math.floor(Math.random() * breakfasts.length)]
       const lunch = lunches[Math.floor(Math.random() * lunches.length)]
-      const snack = snacks[Math.floor(Math.random() * snacks.length)]
+      const snack = snacks ? snacks[Math.floor(Math.random() * snacks.length)] : undefined
       const dinner = dinners[Math.floor(Math.random() * dinners.length)]
-
-      const exerciseQuantity = Math.floor(Math.random() * 3) + 1
 
       const exercisesData: Array<{
         calories: number
@@ -183,6 +317,8 @@ const getMealPlaner = async (
 
       daily.push({
         day: i + 1,
+        dailyCaloriesIntake,
+        dailyCaloriesToBurn,
         meals: {
           breakfast: {
             calories: breakfast.recipe.calories / breakfast.recipe.yield,
@@ -192,10 +328,12 @@ const getMealPlaner = async (
             calories: lunch.recipe.calories / lunch.recipe.yield,
             recipe: lunch,
           },
-          snack: {
-            calories: snack.recipe.calories / snack.recipe.yield,
-            recipe: snack,
-          },
+          snack: snack
+            ? {
+                calories: snack.recipe.calories / snack.recipe.yield,
+                recipe: snack,
+              }
+            : undefined,
           dinner: {
             calories: dinner.recipe.calories / dinner.recipe.yield,
             recipe: dinner,
@@ -206,12 +344,24 @@ const getMealPlaner = async (
     }
 
     const result: IMealPlanner = {
+      bmi,
       bmr,
-      dailyCaloriesBurn: dailyCaloriesToBurn,
-      dailyCaloriesIntake,
+      bodyStatus:
+        bmi < 18.5
+          ? BMILevel.Underweight
+          : bmi < 25
+          ? BMILevel.Normal
+          : bmi < 30
+          ? BMILevel.GainWeight
+          : bmi < 35
+          ? BMILevel.ObeseLevel1
+          : bmi < 40
+          ? BMILevel.ObeseLevel2
+          : BMILevel.ObeseLevel3,
       time: timeDuration ? Number(timeDuration) : 1,
       weightChange: weightChange ? Number(weightChange) : 0,
       daily,
+      warning,
     }
 
     return result
@@ -255,6 +405,18 @@ const getBMI = (
   }
 }
 
+const getWeightIdeal = (req: Request, res: Response): { min: number; max: number } => {
+  const height = Number(req.query.height)
+
+  const min = 18.5 * (height / 100) * (height / 100)
+  const max = 24.9 * (height / 100) * (height / 100)
+
+  return {
+    min,
+    max,
+  }
+}
+
 const getBMR = (req: Request, res: Response): number => {
   const { query } = req
   const { height, weight, age } = query
@@ -271,4 +433,4 @@ const getBMR = (req: Request, res: Response): number => {
   return bmr
 }
 
-export { getMealPlaner, getBMI, getBMR }
+export { getMealPlaner, getWeightIdeal, getBMI, getBMR }
