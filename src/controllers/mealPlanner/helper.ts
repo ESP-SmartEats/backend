@@ -6,7 +6,7 @@ import {
 } from '@hienpham512/smarteats'
 
 export const calculateBMI = ({ weight, height }: { weight: number; height: number }): number => {
-  return weight / (height * height)
+  return weight / (((height / 100) * height) / 100)
 }
 
 export const calculateBMR = ({
@@ -27,37 +27,73 @@ export const calculateBMR = ({
   }
 }
 
-export const calculateCaloriesIntakeAndBurn = (
-  params: IMealPlanRequestParams,
-  activityLevel: ActivityLevel = ActivityLevel.NotActive,
-): { dailyCaloriesIntake: number; dailyCaloriesToBurn: number } => {
-  const dailyCalories = calculateBMR(params)
+export const calculateCaloriesIntakeAndBurn = ({
+  activityLevel = ActivityLevel.NotActive,
+  age,
+  gender,
+  height,
+  isWithExercises,
+  timeDuration,
+  weight,
+  weightChange,
+}: {
+  activityLevel: ActivityLevel
+  age: number
+  gender: Gender
+  height: number
+  isWithExercises: boolean
+  timeDuration: number
+  weight: number
+  weightChange: number
+}): Array<{ day: number; dailyCaloriesIntake: number; dailyCaloriesToBurn: number }> => {
+  const plans: Array<{ day: number; dailyCaloriesIntake: number; dailyCaloriesToBurn: number }> = []
+  let weightCalculated = weight
 
-  const { weightChange } = params
+  for (let i = 0; i <= timeDuration * 7; i++) {
+    let burn = 0
+    let intake = calculateBMR({
+      age,
+      gender,
+      height,
+      weight: weightCalculated,
+    })
 
-  let burn = 0
-  let intake = dailyCalories
+    const weightChangePerDay = weightChange / (timeDuration * 7) / activityLevel
 
-  if (weightChange && weightChange !== 0) {
-    const weightChangePerDay =
-      weightChange > 0 ? activityLevel * (0.003125 / 7) * params.weight : 0.1 / activityLevel
+    if (weightChange === 0) {
+      const caloriesDiffPerDay = Math.floor(Math.random() * 101) + 100
 
-    if (weightChange > 0) {
-      intake += weightChangePerDay * 7700 * (Math.floor(Math.random() * 0.8) + 0.5)
-      burn += weightChangePerDay * 7700 * (Math.floor(Math.random() * 0.3) + 0.2)
+      intake += isWithExercises
+        ? weightChangePerDay * 7700 + caloriesDiffPerDay
+        : weightChangePerDay * 7700
+      burn += isWithExercises ? caloriesDiffPerDay : 0
+    } else if (weightChange > 0) {
+      intake += isWithExercises
+        ? weightChangePerDay * 7700 + (weightChangePerDay * 7700) / 2
+        : weightChangePerDay * 7700
+      burn += isWithExercises ? (weightChangePerDay * 7700) / 2 : 0
     } else {
-      intake -= weightChangePerDay * 7700 * (Math.floor(Math.random() * 0.3) + 0.2)
-      burn += weightChangePerDay * 7700 * (Math.floor(Math.random() * 0.8) + 0.5)
+      intake += isWithExercises
+        ? weightChangePerDay * 7700 - (weightChangePerDay * 7700) / 2
+        : weightChangePerDay * 7700
+      burn += isWithExercises ? ((weightChangePerDay * 7700) / 2) * -1 : 0
     }
-  } else {
-    intake += (activityLevel - 1) * params.weight * 7700
-    burn += (activityLevel - 1) * params.weight * 7700
+
+    plans.push({
+      dailyCaloriesIntake: intake,
+      dailyCaloriesToBurn: burn,
+      day: i + 1,
+    })
+
+    weightCalculated =
+      weightChange > 0
+        ? weightCalculated + weightChangePerDay
+        : weightCalculated - weightChangePerDay
+    weightChange =
+      weightChange > 0 ? weightChange + weightChangePerDay : weightChange - weightChangePerDay
   }
 
-  return {
-    dailyCaloriesIntake: intake,
-    dailyCaloriesToBurn: burn,
-  }
+  return plans
 }
 
 export const calculateDailyCalories = (bmr: number, age: number, gender: Gender): number => {
@@ -102,17 +138,20 @@ export const calculateDailyCaloriesToBurn = (
   return dailyCaloriesToBurn
 }
 
-export const calculateCustomMealCalories = (dailyCalories: number): IMealPlan => {
+export const calculateCustomMealCalories = (
+  dailyCalories: number,
+  isWithSnackTime: boolean,
+): IMealPlan => {
   // Assuming a standard distribution of calories among meals
   const breakfastRatio = 0.25
-  const lunchRatio = 0.4
+  const lunchRatio = isWithSnackTime ? 0.4 : 0.5
   const dinnerRatio = 0.35
-  const snackRatio = 0.1
+  const snackRatio = isWithSnackTime ? 0.1 : 0
 
   const breakfast = dailyCalories * breakfastRatio
   const lunch = dailyCalories * lunchRatio
   const dinner = dailyCalories * dinnerRatio
-  const snack = dailyCalories * snackRatio
+  const snack = isWithSnackTime ? dailyCalories * snackRatio : undefined
 
   return {
     breakfast,
