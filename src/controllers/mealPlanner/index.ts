@@ -21,6 +21,10 @@ import {
   type IMealPlanner,
   type IRecipe,
   type IRecipesRequestParams,
+  type TCuisineType,
+  type TDiet,
+  type TDishType,
+  type THealth,
 } from '@hienpham512/smarteats'
 
 const apiKey = config.services.recipes.apiKey
@@ -155,12 +159,6 @@ const getMealPlaner = async (
   const isWithExercises: boolean = !!query.isWithExercises
   const isWithSnackTime: boolean = !!query.isWithSnackTime
 
-  const recipesParams: IRecipesRequestParams | undefined = query.recipesParams
-    ? (query.recipesParams as IRecipesRequestParams)
-    : undefined
-
-  const excluded = recipesParams ? (recipesParams.excluded as string[]) : []
-
   const timeDuration: number = query.timeDuration
     ? Number(query.timeDuration) > 4
       ? 4
@@ -185,17 +183,53 @@ const getMealPlaner = async (
     warning = 'Suggested: should only gain from 0.25% to 0.5% of body weight per week'
   }
 
-  const exercisesParams = query.exercisesParams
-    ? (query.exercisesParams as {
-        exercisesPerDay?: number
-        bodyParts?: BodyPart[]
-        targets?: Target[]
-      })
-    : undefined
+  const excluded = query.excluded ? query.excluded : undefined
+  const cuisineType = query.cuisineType ? (query.cuisineType as TCuisineType) : undefined
+  const diet = query.diet ? (query.diet as TDiet) : undefined
+  const dishType = query.dishType ? (query.dishType as TDishType) : undefined
+  const health = query.health ? (query.health as THealth) : undefined
+  const mealType = query.mealType ? (query.mealType as TMealType) : undefined
 
-  const exerciseQuantity = exercisesParams?.exercisesPerDay ? exercisesParams.exercisesPerDay : 1
-  const targets = exercisesParams?.targets ? exercisesParams.targets : undefined
-  const bodyParts = exercisesParams?.bodyParts ? exercisesParams.bodyParts : undefined
+  if (typeof excluded === 'string') {
+    excludedParams += `&excluded=${excluded}`
+  } else if (Array.isArray(excluded)) {
+    excludedParams += (excluded as string[]).map((item) => `&excluded=${item}`).join('')
+  } else {
+    excludedParams = ''
+  }
+
+  const recipesParams: IRecipesRequestParams = {
+    cuisineType,
+    diet,
+    dishType,
+    health,
+    mealType,
+  }
+
+  let targets = query.targets ? query.targets : undefined
+  let bodyParts = query.bodyParts ? query.bodyParts : undefined
+
+  if (typeof targets === 'string') {
+    targets = [targets] as Target[]
+  } else if (Array.isArray(targets)) {
+    targets = targets as Target[]
+  } else {
+    targets = undefined
+  }
+
+  if (typeof bodyParts === 'string') {
+    bodyParts = [bodyParts] as Target[]
+  } else if (Array.isArray(bodyParts)) {
+    bodyParts = bodyParts as Target[]
+  } else {
+    bodyParts = undefined
+  }
+
+  const exercisesPerDay = query.exercisesPerDay
+    ? Number(query.exercisesPerDay)
+    : isWithExercises
+    ? 1
+    : 0
 
   const mealPlanParams: IMealPlanRequestParams = {
     height: Number(height),
@@ -210,8 +244,6 @@ const getMealPlaner = async (
     weight: Number(weight),
   })
   const bmr = calculateBMR(mealPlanParams)
-
-  excludedParams += excluded.map((item) => `&excluded=${item}`).join('')
 
   const plans = calculateCaloriesIntakeAndBurn({
     activityLevel,
@@ -229,8 +261,8 @@ const getMealPlaner = async (
   try {
     const exercises = isWithExercises
       ? await listExercises({
-          bodyParts,
-          targets,
+          bodyParts: bodyParts as BodyPart[],
+          targets: targets as Target[],
         })
       : undefined
 
@@ -300,11 +332,11 @@ const getMealPlaner = async (
       }> = []
 
       const caloriesAverage = (Math.floor(Math.random() * 201) + 100) / 15 // 15mn workout burn 100-200 calories
-      const caloriesPerExercise = dailyCaloriesToBurn / exerciseQuantity
+      const caloriesPerExercise = dailyCaloriesToBurn / exercisesPerDay
       const timePerExercise = Math.ceil(caloriesPerExercise / caloriesAverage)
 
       if (exercises) {
-        for (let j = 0; j < exerciseQuantity; j++) {
+        for (let j = 0; j < exercisesPerDay; j++) {
           const exercise = exercises[Math.floor(Math.random() * exercises.length)]
 
           exercisesData.push({
