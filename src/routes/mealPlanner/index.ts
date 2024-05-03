@@ -1,5 +1,5 @@
 import { Router, type Request, type Response } from 'express'
-import { getMealPlaner, getBMI, getBMR } from '../../controllers'
+import { getMealPlaner, getBMI, getBMR, getWeightIdeal } from '../../controllers'
 import verifyToken from '../../middleWare'
 
 const router = Router()
@@ -7,6 +7,7 @@ const router = Router()
 router.use('/meal-planner', verifyToken)
 router.use('bmi', verifyToken)
 router.use('bmr', verifyToken)
+router.use('ideal-weight', verifyToken)
 
 /**
  * @swagger
@@ -209,6 +210,12 @@ router.get('/bmi', (req: Request, res: Response): void => {
  */
 router.get('/bmr', (req: Request, res: Response): void => {
   const result = getBMR(req, res)
+  res.json(result)
+  console.log(`Request: ${req.originalUrl}\n`)
+})
+
+router.get('/ideal-weight', async (req: Request, res: Response) => {
+  const result = getWeightIdeal(req, res)
   res.json(result)
   console.log(`Request: ${req.originalUrl}\n`)
 })
