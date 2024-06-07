@@ -41,11 +41,15 @@ const port = config.server.port ?? 8080
 // Middleware to parse application/octet-stream requests
 app.use(bodyParser.raw({ type: 'application/octet-stream', limit: '50mb' }))
 
+console.log(config.server.origin)
+
 const corsOptions = {
-  origin: config.server.origin,
+  origin: process.env.ORIGIN ?? config.server.origin,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }
+
+console.log(`CORS options: ${JSON.stringify(corsOptions)}`) // Debugging log
 
 app.use(cors(corsOptions))
 
