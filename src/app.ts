@@ -46,7 +46,6 @@ console.log(config.server.origin)
 const corsOptions = {
   origin: process.env.ORIGIN ?? config.server.origin,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
 }
 
 console.log(`CORS options: ${JSON.stringify(corsOptions)}`) // Debugging log
